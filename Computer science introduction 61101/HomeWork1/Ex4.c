@@ -2,10 +2,10 @@
 
 int main() {
 	int num = 0, q, w, e, r, saveNum;
-	saveNum = num;
 	printf("Please enter number to be checked : \n");
 	scanf("%d", &num);
-
+	saveNum = num;
+	
 	if (num > 10000) {
 		while (num < 10000) {
 			printf("ERORR.Please re-enter number contains less than 4 simbols\n");
