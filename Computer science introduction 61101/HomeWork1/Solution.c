@@ -69,124 +69,79 @@ void Ex2() {
 int ifLessThanZero(int t);
 
 void Ex3() {
-	int n = 0, q = 0, w = 0, e = 0, r = 0, t = 0, y = 0, tmp = 0;
-	printf("Please enter number of numbers to be checked(for this moment 6 is maximum) : \n");
+	int n = 0, tmp = 0,sum = 0,max = 0,min = 0;
+	printf("Please enter number of numbers to be checked : ");
 	scanf("%d", &n);
-
-	printf("Enter numbers to be checked one by one : \n");
-	int i = 1;
-	for (i; i <= n; i++) {
-		switch (i) {
-		case 1:
-			scanf("%d", &tmp);
-			q = ifLessThanZero(tmp);
-			break;
-		case 2:
-			scanf("%d", &tmp);
-			w = ifLessThanZero(tmp);
-			break;
-		case 3:
-			scanf("%d", &tmp);
-			e = ifLessThanZero(tmp);
-			break;
-		case 4:
-			scanf("%d", &tmp);
-			r = ifLessThanZero(tmp);
-			break;
-		case 5:
-			scanf("%d", &tmp);
-			t = ifLessThanZero(tmp);
-			break;
-		case 6:
-			scanf("%d", &tmp);
-			y = ifLessThanZero(tmp);
-			break;
-		}
-	}
-	int min = 0;
-	switch (n) {
-	case 1:
-		min = q;
-		break;
-	case 2:
-		min = q < w ? q : w;
-		break;
-	case 3:
-		min = q < w ? q : w < e ? w : e;
-		break;
-	case 4:
-		min = q < w ? q : w < e ? w : e < r ? e : r;
-		break;
-	case 5:
-		min = q < w ? q : w < e ? w : e < r ? e : r < t ? r : t;
-		break;
-	case 6:
-		min = q < w ? q : w < e ? w : e < r ? e : r < t ? r : t < y ? t : y;
-		break;
+    tmp = n;
+	printf("Enter numbers to be checked one by one\n");
+	int i = 0;
+	for (i; i < n; i++) {
+	    printf("Enter number %d :",i+1);
+		scanf("%d", &tmp);
+		ifLessThanZero(tmp);
+		if (i == 0)
+			min = max = tmp;
+		if (tmp > max)
+			max = tmp;
+		if (tmp < min)
+				min = tmp;
+		sum = sum + tmp;
 	}
 
-	int max = q > w ? q : w > e ? w : e > r ? e : r > t ? r : t > y ? t : y;
-
-	printf("Sum of numbers : %d\n", q + w + e + r + t + y);
+	printf("Sum of numbers : %d\n", sum);
 	printf("Minimal number : %d\n", min);
 	printf("Maximal number : %d\n", max);
 }
 
 int ifLessThanZero(int t) {
-	int newNumber = t;
-	if (t <= 0) {
-		while (newNumber <= 0) {
-			printf("Re-enter number(number is negative)\n");
-			scanf("%d", &newNumber);
+    int newNumber = t;
+	while (newNumber < 0) {
+	    printf("Re-enter number(number is negative): ");
+	    scanf("%d", &newNumber);
 		}
-	}
-	if (t > 0) {
 		return newNumber;
-	}
 }
 //*********************************************
 
 //**********************************************
 void Ex4() {
-	int num = 0, q, w, e, r, saveNum;
+	int num = 0, digits = 0, saveNum,sum;
 	printf("Please enter number to be checked : \n");
 	scanf("%d", &num);
 	saveNum = num;
-
-	if (num > 10000) {
-		while (num < 10000) {
-			printf("ERORR.Please re-enter number contains less than 4 simbols\n");
-			scanf("%d", &num);
-		}
+	
+	while(saveNum != 0){
+	    saveNum = saveNum/10;
+	    digits++;
 	}
-	r = num % 10;
-	num = num / 10;
-	e = num % 10;
-	num = num / 10;
-	w = num % 10;
-	num = num / 10;
-	q = num;
-
-	int sum = ((q * 10) + w) + ((e * 10) + r);
-	printf("Add two numbers %d%d + %d%d = %d\n", q, w, e, r, sum);
-	printf("Sum of two number squared %d\n", sum*sum);
-
-	if (sum*sum == saveNum) {
-		return 1;
+	int ans = calculation(num,digits);
+	if(ans)printf("Number is special!");
+	if(!ans)printf("Number not special.");
+}
+int calculation(int num,int digits){
+    int halfDigitsM10 = 1,sum;
+	if(!digits%2){
+	    printf("Can't be calculated");
+	    return 0;
 	}
-	else {
-		return 0;
-	}
+	
+	for (i = 1; i <= digits / 2; i++) halfDigitsM10 *= 10;
+	sum = (num / halfDigitsM10 + num % halfDigitsM10);
+
+	return (sum * sum == num) ? 1 : 0;
 }
 //*********************************************
 
 //**********************************************
+void calculationEx5(int num);
 void Ex5() {
-	int num, n = 0, saveNum = 0, comp = 1;
+	int num, n = 0, comp = 1;
 	printf("Enter number to be completed : \n");
 	scanf("%d", &num);
-	saveNum = num;
-
+	calculation(num);
+}
+void calculationEx5(int num){
+	int saveNum = num;
 	while (num != 0) {
 		num = num / 10;
 		n++;
@@ -202,19 +157,33 @@ void Ex5() {
 //**********************************************
 int factorial(int f);
 int power(int num, int pow);
+void calculationEx6(int x,int n);
 
 void Ex6() {
-	int x = 0, n = 0, turns = 1;
-	double s = 0;
+	int x = 0, n = 0;
 	printf("Please enter X :\n");
 	scanf("%d", &x);
 	printf("Please enter N : \n");
 	scanf("%d", &n);
-	int n1 = n;
-
+	calculationEx6(x,n)
+}
+void Ex6() {
+	int x = 0, n = 0;
+	printf("Please enter X :\n");
+	scanf("%d", &x);
+	printf("Please enter N : \n");
+	scanf("%d", &n);
+	calculationEx6(x,n);
+	//printf("fac %d",factorial(5));
+    }
+    
+void calculationEx6(int x,int n){
+	double s = 0;
+	int turns = 1, n1 = 1;
 	//n=0
 	s = (x - 1);
 	turns += 2;
+	n1++;
 
 	//end point
 	int t = ((2 * n) + 1);
@@ -231,12 +200,11 @@ void Ex6() {
 }
 
 int factorial(int f) {
-	int r = 1;
-	while (f != 1) {
-		r = r * f;
-		f--;
+	int ans = 1,i = 1;
+	for (i = 1; i <= f; ++i) {
+	    ans *= i;
 	}
-	return r;
+	return ans;
 }
 
 int power(int num, int pow) {
