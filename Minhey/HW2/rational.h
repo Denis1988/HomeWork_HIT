@@ -1,13 +1,17 @@
+#ifndef RATIONAL_H
+#define RATIONAL_H
 #include "polynomial.h"
 
 class Rational {
 private:
-	int num;
+	int num = 0;
 public:
 	void print();
 	double getNom();
 	double getDenom();
-	friend std::ostream& operator<<(std::ostream& os, const Rational& po);
+	friend ostream& operator<<(ostream& os,Rational const &po);
 	Rational();
 	Rational(Polynomial one, Polynomial two);
 };
+
+#endif

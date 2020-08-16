@@ -1,13 +1,12 @@
 #include "polynomial.h"
 
+Polynomial::Polynomial(int i){
+	setItem(0.0, i);
 
-Polynomial::Polynomial(int i) {
-	setItem(i, 0);
-	
 }
 
 int Polynomial::getMaxDegree() {
-	return 0;
+	return last;
 }
 
 Polynomial::Polynomial(double* item) {
@@ -25,20 +24,33 @@ Polynomial::Polynomial(double* item, int i) {
 }
 
 void Polynomial::setCoeff(int n, double h) {
-
+	setItem(h, n);
 }
 
 
 
 
 void Polynomial::setItem(double d,int i) {
-	this->item[i] = &d;
+	this->item[i] = d;
+	this->deg = i;
 }
 
-Polynomial Polynomial::operator << (Polynomial p) {
-	double d[sizeof()];
-
-	for (int i = 0,int j = 0; i < sizeof(p); i++,j+2) {
-		d[i] = *p.item[i];
+std::ostream& operator << (std::ostream& os,const Polynomial &p) {
+	os << "polynomial = ";
+	for (int i = 0; i < p.deg; i++) {
+		if (i == 0) {
+			os << p.item[0];
+		}
+		else {
+			os << "+" << p.item[i] << "^" << i;
+		}
+		
 	}
+	os << endl;
+	return os;
+}
+
+int Polynomial::getDegree(bool b) {
+
+	return 0;
 }
