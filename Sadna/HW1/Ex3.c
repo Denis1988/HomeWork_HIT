@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct ivar* ADD(struct ivar* head, int size);
+void push(struct ivar* head, int size, struct natun* na);
 struct ivar {
 	struct natun* n;
 	struct ivar* next;
@@ -17,42 +17,43 @@ int main()
 {
 	struct ivar* ans = (struct ivar*)malloc(sizeof(struct ivar));
 	ans->n = (struct natun*)malloc(sizeof(struct natun*));
-	ans->next = (struct ivar*)malloc(sizeof(struct ivar*));
-	ans->size = 1;
-//	ans = (struct ivar*)realloc(ans, sizeof(struct ivar*) * (1 + 1)+1);
-//	ans[1].n = (struct natun*)malloc(sizeof(struct natun*));
-//	ans[1].next = (struct ivar*)malloc(sizeof(struct ivar*));
-//	ans[0].next = &ans[1];
 	int a[20] = {	3,2,5,3,6,
 					8,3,4,6,5,
 					0,6,4,5,7,
 					9,8,6,6,1 };
 
-	printf("%d", ex3(a, 5, 3, &ans));
+	printf("%d", exensionto3(a, 5, 3, &ans));
 	return 0;
 }
-int ex3(int* m, int t, int r, struct ivar* ans) {
+int exensionto3(int* m, int t, int r, struct ivar* ans) {
+	struct natun* na = (struct natun*)malloc(sizeof(struct natun));
+	struct ivar* temp;
+	ans->n = NULL;
+	ans->next = NULL;
 	int index = 0;
 	for (int k = 0; k <= r; k++) {
 		for (int l = 0; l < t; l++) {
 			if ((k + l) == m[k*t + l]) {
-				ans->n->n = m[k*t + l];
-				ans->n->i = k+1;
-				ans->n->j = l+1;
-				ans->next = ADD(ans,++index);
-				ans = &ans->next;
+				na->n = m[k*t + l];
+				na->i = k;
+				na->j = l;
+				index++;
+				push(ans, index, na);
 			}
 		}
 	}
-	int p = 0;
-	while (ans->next != NULL) {
-		printf("ivar = %d,i = %d ,j = %d\n", ans->n->n, ans->n->i, ans->n->j);
-	}
 	return index;
 }
-struct ivar* ADD(struct ivar* head,int size){
-	struct ivar* tmp = (struct ivar*)malloc(sizeof(struct ivar));
-	tmp->n = (struct natun*)malloc(sizeof(struct natun*));
-	tmp->next = (struct ivar*)malloc(sizeof(struct ivar*));
-	return &tmp;
+void push(struct ivar* head,int size,struct natun* na){
+	struct ivar* tmp = head;
+	while (tmp->next != NULL) {
+		tmp = tmp->next;
+	}
+	tmp->next = (struct ivar*)malloc(sizeof(struct ivar));
+	tmp->size = size;
+	tmp->n = (struct natun*)malloc(sizeof(struct natun));
+	tmp->n->i = na->i;
+	tmp->n->j = na->j;
+	tmp->n->n = na->n;
+	tmp->next->next = NULL;
 }
